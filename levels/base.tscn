@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://level stuff/tileset.tres" type="TileSet" id=1]
+
+[node name="level" type="Node2D" groups=[
+"room",
+]]
+
+[node name="TileMap" type="TileMap" parent="."]
+self_modulate = Color( 0.709804, 0.513726, 0.552941, 1 )
+scale = Vector2( 2, 2 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 12, 12 )
+collision_layer = 3
+collision_mask = 3
+format = 1
+tile_data = PoolIntArray( 1, 0, 196615, 65537, 0, 262151, 131073, 0, 262151, 196609, 0, 262151, 262145, 0, 262151, 327681, 0, 262151, 393217, 0, 262151, 458753, 0, 262151, 524289, 0, 262151, 589825, 0, 327687 )
+
+[node name="TileMap2" type="TileMap" parent="." groups=[
+"die",
+]]
+self_modulate = Color( 1, 0.705882, 0.635294, 1 )
+scale = Vector2( 2, 2 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 12, 12 )
+collision_layer = 4
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -1703865, 0, 327686, 0, 0, 196615, 65536, 0, 262151, 131072, 0, 262151, 196608, 0, 262151, 262144, 0, 262151, 327680, 0, 262151, 393216, 0, 262151, 458752, 0, 262151, 524288, 0, 262151, 589824, 0, 327687 )
