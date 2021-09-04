@@ -67,6 +67,7 @@ var speedboost = false
 var state = "idle"
 
 onready var base = get_node("/root/base")
+onready var walkparticles = $Particles2D
 
 func _ready():
 	#turn on things, set the base

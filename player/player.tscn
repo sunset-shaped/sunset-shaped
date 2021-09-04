@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/player.png" type="Texture" id=2]
+[ext_resource path="res://player/light.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
@@ -118,16 +119,29 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 1, 0.803922, 0.698039, 1 )
+light_mask = 0
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 show_behind_parent = true
+light_mask = 0
 amount = 10
 lifetime = 0.6
 randomness = 0.1
 local_coords = false
 process_material = SubResource( 4 )
 texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+modulate = Color( 1, 1, 1, 0.627451 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+texture_scale = 0.5
+color = Color( 1, 0.803922, 0.698039, 1 )
+energy = 0.7
+range_layer_min = -10
+shadow_enabled = true
+shadow_gradient_length = 3.0
 
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
