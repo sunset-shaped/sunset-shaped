@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="stopwaiting4godot"
+config/name="sunset-shaped"
 run/main_scene="res://base.tscn"
 config/icon="res://icon.png"
 

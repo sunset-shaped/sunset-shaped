@@ -87,8 +87,8 @@ func get_input(delta):
 		
 	#settle these variables first
 	var onfloor = raycast("floor")
-	var leftwall = raycast("left") && Input.is_action_pressed("left")
-	var rightwall = raycast("right") && Input.is_action_pressed("right")
+	var leftwall = raycast("left")
+	var rightwall = raycast("right")
 	
 	
 	#direction of player
@@ -119,7 +119,7 @@ func get_input(delta):
 			
 	
 	if Input.is_action_just_pressed("jump"):
-		if (leftwall || rightwall) && !onfloor:
+		if (leftwall || rightwall) && !onfloor && state != "jumping":
 			curforce = jumpheight
 			velocity.y = -curforce
 			state = "jumping"
@@ -129,6 +129,7 @@ func get_input(delta):
 			
 		if rightwall && !onfloor:
 			velocity.x = velocity.x - 1000
+			
 
 	if Input.is_action_pressed("jump"):
 		if onfloor || rightwall || leftwall:
@@ -148,7 +149,7 @@ func get_input(delta):
 		
 		
 
-	if leftwall || rightwall:
+	if (leftwall || rightwall) && state != "jumping" :
 		velocity.y = clamp(velocity.y + 1000 * delta, -1500, 350)
 	else:
 		velocity.y = clamp(velocity.y + gravity * delta, -1500, 1500)

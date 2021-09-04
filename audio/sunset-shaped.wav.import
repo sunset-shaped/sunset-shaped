@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sunset-shaped.wav-cfa228fdcf41ef8001034f3d62f024ad.sample"
+
+[deps]
+
+source_file="res://audio/sunset-shaped.wav"
+dest_files=[ "res://.import/sunset-shaped.wav-cfa228fdcf41ef8001034f3d62f024ad.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0
