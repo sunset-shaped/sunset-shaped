@@ -80,6 +80,7 @@ func get_input(delta):
 		
 	if base.state != "play":
 		velocity.x = 0
+		velocity.y = 0
 		return
 		
 		
@@ -115,7 +116,6 @@ func get_input(delta):
 		if onfloor:
 			state = "idle"
 			
-	$Label.text = str(velocity.y) + " " + state + " " + str(onfloor)
 	
 	if Input.is_action_just_pressed("jump"):
 		if (leftwall || rightwall) && !onfloor:

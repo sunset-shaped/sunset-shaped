@@ -31,7 +31,9 @@ angle_random = 1.0
 scale_random = 0.1
 color_ramp = SubResource( 3 )
 
-[node name="player" type="KinematicBody2D"]
+[node name="player" type="KinematicBody2D" groups=[
+"player",
+]]
 collision_mask = 2
 script = ExtResource( 1 )
 
@@ -105,6 +107,7 @@ cast_to = Vector2( 0, 18 )
 collision_mask = 2
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 __meta__ = {

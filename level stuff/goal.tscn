@@ -35,6 +35,7 @@ color_ramp = SubResource( 4 )
 [node name="goal" type="Area2D" groups=[
 "goal",
 ]]
+collision_layer = 0
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

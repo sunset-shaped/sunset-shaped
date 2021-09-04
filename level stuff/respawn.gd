@@ -16,4 +16,4 @@ func check_respawn(target):
 		player.position = position
 
 func _on_respawn_body_entered(body):
-	emit_signal("select", name)
+	emit_signal("select", id)
