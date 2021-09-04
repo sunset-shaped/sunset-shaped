@@ -1,0 +1,164 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://christmas lights.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://menu/button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://level stuff/text.tscn" type="PackedScene" id=3]
+[ext_resource path="res://menu/menu.gd" type="Script" id=4]
+[ext_resource path="res://audio/click.wav" type="AudioStream" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 90
+font_data = ExtResource( 1 )
+
+[node name="menu" type="CanvasLayer"]
+layer = 2
+
+[node name="menu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="menu"]
+modulate = Color( 1, 0.705882, 0.635294, 1 )
+margin_left = 289.315
+margin_top = 104.962
+margin_right = 963.315
+margin_bottom = 225.962
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center] sunset-shaped"
+text = " sunset-shaped"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="play" parent="menu" instance=ExtResource( 2 )]
+margin_left = -56.5632
+margin_top = 281.007
+margin_right = 475.437
+margin_bottom = 402.007
+
+[node name="info" parent="menu" instance=ExtResource( 2 )]
+margin_left = 183.543
+margin_top = 339.756
+margin_right = 715.543
+margin_bottom = 460.756
+focus_neighbour_left = NodePath("../play")
+focus_neighbour_top = NodePath("../play")
+focus_neighbour_right = NodePath("../quit")
+focus_neighbour_bottom = NodePath("../quit")
+
+[node name="text" parent="menu/info" index="0"]
+bbcode_text = "[center]info"
+text = "info"
+
+[node name="quit" parent="menu" instance=ExtResource( 2 )]
+margin_left = 434.389
+margin_top = 388.886
+margin_right = 966.388
+margin_bottom = 509.886
+focus_neighbour_left = NodePath("../info")
+focus_neighbour_top = NodePath("../info")
+focus_neighbour_right = NodePath("")
+focus_neighbour_bottom = NodePath("")
+
+[node name="text" parent="menu/quit" index="0"]
+bbcode_text = "[center]quit"
+text = "quit"
+
+[node name="text" parent="menu" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
+[node name="info" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="info"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="info"]
+modulate = Color( 0.898039, 0.596078, 0.607843, 1 )
+margin_left = 171.428
+margin_top = 77.5837
+margin_right = 845.428
+margin_bottom = 198.584
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center] sunset-shaped"
+text = " sunset-shaped"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" parent="info" instance=ExtResource( 3 )]
+margin_left = 212.5
+margin_top = 172.119
+margin_right = 831.5
+margin_bottom = 438.119
+custom_constants/line_separation = 0
+bbcode_text = "[center]is created by [color=#FFB4A2]bucketfish[/color] for the [color=#FFB4A2]stop waiting for godot[/color] game jam 2021.
+
+all assets, music, and sounds belong to her."
+text = "is created by bucketfish for the stop waiting for godot game jam 2021.
+
+all assets, music, and sounds belong to her."
+
+[node name="back" parent="info" instance=ExtResource( 2 )]
+margin_left = 212.5
+margin_top = 459.882
+margin_right = 744.5
+margin_bottom = 580.882
+
+[node name="text" parent="info/back" index="0"]
+bbcode_text = "[center]back"
+text = "back"
+
+[node name="text2" parent="info" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
+[node name="clicksound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -30.0
+
+[connection signal="pressed" from="menu/play" to="menu" method="_on_play_pressed"]
+[connection signal="pressed" from="menu/info" to="menu" method="_on_info_pressed"]
+[connection signal="pressed" from="menu/quit" to="menu" method="_on_quit_pressed"]
+[connection signal="pressed" from="info/back" to="menu" method="_on_back_pressed"]
+
+[editable path="menu/info"]
+[editable path="menu/quit"]
+[editable path="info/back"]

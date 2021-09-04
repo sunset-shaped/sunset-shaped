@@ -7,10 +7,26 @@ var level = 1
 signal start_respawn(id)
 
 onready var anim = $anim
+onready var music_anim = $music_anim
 onready var savesound = $save
+onready var menu = $menu/menu
+onready var info = $menu/info
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	state = "pause"
 	respawn = 1
+	menu.visible = true
+	info.visible = false
+	
+func _play():
+	anim.play("fade")
+	yield(anim, "animation_finished")
+	menu.visible = false
+	info.visible = false
+	anim.play_backwards("fade")
+	yield(anim, "animation_finished")
+	state = "play"
+	
 
 func _on_respawn_set(id):
 	respawn = id

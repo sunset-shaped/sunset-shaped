@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://menu/button.gd" type="Script" id=1]
+[ext_resource path="res://player/color-gradient.tres" type="Texture" id=2]
+[ext_resource path="res://level stuff/text.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player/player.png" type="Texture" id=4]
+[ext_resource path="res://christmas lights.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 69
+font_data = ExtResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 30.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 20.0
+initial_velocity_random = 1.0
+angular_velocity = 20.0
+angular_velocity_random = 1.0
+orbit_velocity = 1.0
+orbit_velocity_random = 1.0
+angle = 720.0
+angle_random = 1.0
+color_ramp = ExtResource( 2 )
+
+[node name="play" type="TextureButton"]
+margin_left = -40.3858
+margin_top = 301.154
+margin_right = 491.614
+margin_bottom = 422.154
+focus_neighbour_right = NodePath("../info")
+focus_neighbour_bottom = NodePath("../info")
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" parent="." instance=ExtResource( 3 )]
+modulate = Color( 0.898039, 0.596078, 0.607843, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_text = "[center]play"
+text = "play"
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 208.969, 31.6753 )
+process_material = SubResource( 2 )
+texture = ExtResource( 4 )
+
+[connection signal="focus_entered" from="." to="." method="_on_play_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_play_focus_exited"]
