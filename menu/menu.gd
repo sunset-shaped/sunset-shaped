@@ -6,6 +6,7 @@ extends Control
 # var b = "text"
 
 onready var info = get_parent().get_node("info")
+onready var end = get_parent().get_node("end")
 onready var base = get_node("/root/base")
 onready var click = get_parent().get_node("clicksound")
 # Called when the node enters the scene tree for the first time.
@@ -34,6 +35,7 @@ func _on_info_pressed():
 func _on_back_pressed():
 	click.play()
 	info.visible = false
+	end.visible = false
 	visible = true
 	$info.grab_focus()
 

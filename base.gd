@@ -8,21 +8,24 @@ signal start_respawn(id)
 
 onready var anim = $anim
 onready var music_anim = $music_anim
-onready var savesound = $save
 onready var menu = $menu/menu
 onready var info = $menu/info
+onready var end = $menu/end
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "pause"
 	respawn = 1
 	menu.visible = true
 	info.visible = false
+	end.visible = false
 	
 func _play():
 	anim.play("fade")
 	yield(anim, "animation_finished")
 	menu.visible = false
 	info.visible = false
+	end.visible = false
+	change_scene("res://levels/1.tscn", false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
 	state = "play"
@@ -48,11 +51,11 @@ func next_level():
 	respawn = 1
 	change_scene("res://levels/"+str(level)+".tscn")
 	
-func change_scene(path):
+func change_scene(path, play=true):
 	state = "pause"
-	anim.play("fade")
-	yield(anim, "animation_finished")
-	
+	if play:
+		anim.play("fade")
+		yield(anim, "animation_finished")
 	for i in get_children():
 		if i.is_in_group("room"):
 			i.queue_free()
@@ -63,7 +66,23 @@ func change_scene(path):
 	yield(newroom, "change_done")
 
 	yield(get_tree().create_timer(0.4), "timeout")
-	state = "play"
-	
+
+	if play:
+		state = "play"
+		anim.play_backwards("fade")
+		yield(anim, "animation_finished")
+
+func _end():
+	state = "pause"
+	anim.play("fade")
+	yield(anim, "animation_finished")
+	end.visible = true
+	menu.visible = false
+	end.get_node("back").grab_focus()
+	change_scene("res://levels/1.tscn", false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
+	level = 1
+	respawn = 1
+	state = "pause"
+	

@@ -6,6 +6,7 @@ extends Area2D
 # var b = "text"
 
 onready var base = get_node("/root/base")
+export var final = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,4 +20,7 @@ func _ready():
 
 func _on_goal_body_entered(body):
 	if body.is_in_group("player"):
+		if final:
+			base._end()
+			return
 		base.next_level()

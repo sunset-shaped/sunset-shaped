@@ -14,6 +14,7 @@ font_data = ExtResource( 1 )
 layer = 2
 
 [node name="menu" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
@@ -150,6 +151,70 @@ margin_bottom = 738.587
 bbcode_text = "[center]press z to select"
 text = "press z to select"
 
+[node name="end" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="end"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="end"]
+modulate = Color( 0.898039, 0.596078, 0.607843, 1 )
+margin_left = 171.428
+margin_top = 77.5837
+margin_right = 845.428
+margin_bottom = 198.584
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]the end."
+text = "the end."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" parent="end" instance=ExtResource( 3 )]
+margin_left = 212.5
+margin_top = 172.119
+margin_right = 831.5
+margin_bottom = 438.119
+custom_constants/line_separation = 0
+bbcode_text = "[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
+
+i hoped you enjoyed playing it. i enjoyed making it.
+[color=#FFB4A2]stay safe.[/color]"
+text = "thank you for playing sunset-shaped by bucketfish.
+
+i hoped you enjoyed playing it. i enjoyed making it.
+stay safe."
+
+[node name="back" parent="end" instance=ExtResource( 2 )]
+margin_left = 212.5
+margin_top = 459.882
+margin_right = 744.5
+margin_bottom = 580.882
+
+[node name="text" parent="end/back" index="0"]
+bbcode_text = "[center]back"
+text = "back"
+
+[node name="text2" parent="end" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
 [node name="clicksound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -30.0
@@ -158,7 +223,9 @@ volume_db = -30.0
 [connection signal="pressed" from="menu/info" to="menu" method="_on_info_pressed"]
 [connection signal="pressed" from="menu/quit" to="menu" method="_on_quit_pressed"]
 [connection signal="pressed" from="info/back" to="menu" method="_on_back_pressed"]
+[connection signal="pressed" from="end/back" to="menu" method="_on_back_pressed"]
 
 [editable path="menu/info"]
 [editable path="menu/quit"]
 [editable path="info/back"]
+[editable path="end/back"]
