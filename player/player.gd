@@ -136,9 +136,12 @@ func get_input(delta):
 			state = "jumping"
 
 
-		if state == "jumping":
+		if state == "jumping" || state == "falling":
 			velocity.y = clamp(velocity.y - curforce, -1000, 10000000)
 			curforce *= jumpinc
+			if velocity.y >= 0:
+				state = "falling"
+		
 		
 	
 	#moving down in water
@@ -149,10 +152,10 @@ func get_input(delta):
 		
 		
 
-	if (leftwall || rightwall) && state != "jumping" :
-		velocity.y = clamp(velocity.y + 1000 * delta, -1500, 350)
+	if (leftwall || rightwall) && state != "jumping":
+		velocity.y = clamp(velocity.y + 1000 * delta, -1000, 350)
 	else:
-		velocity.y = clamp(velocity.y + gravity * delta, -1500, 1500)
+		velocity.y = clamp(velocity.y + gravity * delta, -1000, 1000)
 	
 
 func _physics_process(delta):

@@ -1,7 +1,7 @@
 extends Node2D
 
 var state = "play"
-var respawn = 0
+var respawn = 1
 var level = 1
 
 signal start_respawn(id)
@@ -9,7 +9,7 @@ signal start_respawn(id)
 onready var anim = $anim
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	respawn = 1
 
 func _on_respawn_set(id):
 	respawn = id
