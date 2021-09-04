@@ -7,6 +7,7 @@ var level = 1
 signal start_respawn(id)
 
 onready var anim = $anim
+onready var savesound = $save
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	respawn = 1

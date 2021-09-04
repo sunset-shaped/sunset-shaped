@@ -65,9 +65,12 @@ var doubledash = false
 var speedboost = false
 
 var state = "idle"
+var touching = false
 
 onready var base = get_node("/root/base")
 onready var walkparticles = $Particles2D
+onready var jumpsound = $AudioStreamPlayer
+onready var diesound = $AudioStreamPlayer2
 
 func _ready():
 	#turn on things, set the base
@@ -89,6 +92,13 @@ func get_input(delta):
 	var onfloor = raycast("floor")
 	var leftwall = raycast("left")
 	var rightwall = raycast("right")
+	
+	if (onfloor || leftwall || rightwall) && !touching:
+		touching = true
+		jumpsound.play()
+		
+	if !onfloor && !leftwall && !rightwall:
+		touching = false
 	
 	
 	#direction of player
@@ -129,6 +139,7 @@ func get_input(delta):
 			
 		if rightwall && !onfloor:
 			velocity.x = velocity.x - 1000
+			
 			
 
 	if Input.is_action_pressed("jump"):
@@ -198,4 +209,12 @@ func _on_canstand_body_exited(body):
 
 func _on_area_body_entered(body):
 	if body.is_in_group("die"):
+		diesound.play()
 		base.on_respawn()
+
+
+
+func _on_hit_body_entered(body):
+	if body.is_in_group("wall"):
+		print("AAA")
+		jumpsound.play()

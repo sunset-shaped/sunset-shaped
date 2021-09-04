@@ -1,14 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/player.png" type="Texture" id=2]
 [ext_resource path="res://player/light.png" type="Texture" id=3]
 [ext_resource path="res://player/color-gradient.tres" type="Texture" id=4]
+[ext_resource path="res://audio/die.wav" type="AudioStream" id=5]
+[ext_resource path="res://audio/click.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=2]
 lifetime_randomness = 0.1
 flag_disable_z = true
 direction = Vector3( 0, 1, 0 )
@@ -124,7 +126,7 @@ amount = 10
 lifetime = 0.6
 randomness = 0.1
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
@@ -137,5 +139,14 @@ energy = 0.7
 range_layer_min = -10
 shadow_enabled = true
 shadow_gradient_length = 3.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -30.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -7.0
+pitch_scale = 2.0
 
 [connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
