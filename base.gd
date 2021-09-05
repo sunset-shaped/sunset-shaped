@@ -4,6 +4,9 @@ var state = "play"
 var respawn = 1
 var level = 1
 
+var timer:float = 0
+var deaths = 0
+
 signal start_respawn(id)
 
 onready var anim = $anim
@@ -25,6 +28,8 @@ func _play():
 	menu.visible = false
 	info.visible = false
 	end.visible = false
+	timer = 0
+	deaths = 0
 	change_scene("res://levels/1.tscn", false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
@@ -37,6 +42,7 @@ func _on_respawn_set(id):
 func on_respawn(play=true):
 	if play:
 		anim.play("fade")
+		deaths += 1
 	state = "pause"
 	if play:
 		yield(anim, "animation_finished")
@@ -78,6 +84,7 @@ func _end():
 	yield(anim, "animation_finished")
 	end.visible = true
 	menu.visible = false
+	menu.end_text()
 	end.get_node("back").grab_focus()
 	change_scene("res://levels/1.tscn", false)
 	anim.play_backwards("fade")
@@ -86,3 +93,8 @@ func _end():
 	respawn = 1
 	state = "pause"
 	
+
+func _process(delta):
+	if state == "play":
+		timer += delta
+		

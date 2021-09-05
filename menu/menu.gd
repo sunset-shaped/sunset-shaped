@@ -9,15 +9,36 @@ onready var info = get_parent().get_node("info")
 onready var end = get_parent().get_node("end")
 onready var base = get_node("/root/base")
 onready var click = get_parent().get_node("clicksound")
+onready var endtext = get_parent().get_node("end/text")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$play.grab_focus()
 	visible = true
 
+func end_text():
+	var taken = stepify(base.timer, 0.01)
+	
+	var hr = floor(taken/3600)
+	var mn = floor(taken/60) - (hr * 60)
+	var sc = floor(taken) - (mn*60) - (hr*3600)
+	var mls = fmod(taken,1) * 100
+	
+	var deaths = base.deaths
+	
+	if hr == 0:
+	
+		endtext.bbcode_text = """[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+time - %s:%s.%s
+deaths - %s
+[color=#FFB4A2]stay safe.[/color]""" % [str(mn), str(sc), str(mls), str(deaths)]
+
+	else:
+		endtext.bbcode_text = """[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
+
+time - $s:%s:%s.%s
+deaths - %s
+[color=#FFB4A2]stay safe.[/color]""" % [str(hr), str(mn), str(sc), str(mls), str(deaths)]
 
 
 func _on_play_pressed():

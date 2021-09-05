@@ -125,9 +125,6 @@ autoplay = true
 
 [node name="menu" parent="." instance=ExtResource( 6 )]
 
-[node name="title" parent="menu/menu" index="1"]
-modulate = Color( 1, 0.705882, 0.635294, 1 )
-
 [node name="level" parent="." instance=ExtResource( 1 )]
 
 [editable path="player"]
