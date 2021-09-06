@@ -64,9 +64,10 @@ func on_respawn(play=true):
 	state = "play"
 	
 func next_level():
-	level += 1
-	respawn = 1
-	change_scene("res://levels/"+str(level)+".tscn")
+	if state == "play":
+		level += 1
+		respawn = 1
+		change_scene("res://levels/"+str(level)+".tscn")
 	
 func change_scene(path, play=true):
 	state = "pause"

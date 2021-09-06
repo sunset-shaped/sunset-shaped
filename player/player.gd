@@ -147,13 +147,12 @@ func get_input(delta):
 			state = "jumping"
 
 
-		if state == "jumping" || state == "falling":
+		if state == "jumping":
 			velocity.y = clamp(velocity.y - curforce, -1000, 10000000)
 			curforce *= jumpinc
 		
 		if velocity.y >= 0:
 			state = "falling"
-		
 		
 	
 	#moving down in water
