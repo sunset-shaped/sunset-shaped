@@ -14,6 +14,7 @@ onready var music_anim = $music_anim
 onready var menu = $menu/menu
 onready var info = $menu/info
 onready var end = $menu/end
+onready var pause_screen = $menu/pause
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "pause"
@@ -21,16 +22,26 @@ func _ready():
 	menu.visible = true
 	info.visible = false
 	end.visible = false
+	pause_screen.visible = false
 	
 func _play():
 	anim.play("fade")
 	yield(anim, "animation_finished")
-	menu.visible = false
-	info.visible = false
-	end.visible = false
+	menu._hideall()
 	timer = 0
 	deaths = 0
+	respawn = 1
 	change_scene("res://levels/1.tscn", false)
+	anim.play_backwards("fade")
+	yield(anim, "animation_finished")
+	state = "play"
+	
+func _resetlevel():
+	anim.play("fade")
+	yield(anim, "animation_finished")
+	menu._hideall()
+	respawn = 1
+	on_respawn(false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
 	state = "play"
@@ -93,8 +104,31 @@ func _end():
 	respawn = 1
 	state = "pause"
 	
+func _input(event):
+	if Input.is_action_just_pressed("pause") && state == "play":
+		pausegame()
+		
+	elif Input.is_action_just_pressed("pause") && state == "pause" && !menu.visible:
+		unpause()
+		
+func pausegame():
+	state = "pause"
+	menu.visible = false
+	info.visible = false
+	end.visible = false
+	pause_screen.visible = true
+	pause_screen.get_node("continue").grab_focus()
+	
+func unpause():
+	state = "play"
+	pause_screen.visible = false
+	
 
 func _process(delta):
 	if state == "play":
 		timer += delta
 		
+func _notification(notification):
+	if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		if state == "play":
+			pausegame()

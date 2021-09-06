@@ -88,6 +88,275 @@ margin_bottom = 738.587
 bbcode_text = "[center]press z to select"
 text = "press z to select"
 
+[node name="pause" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="pause"]
+modulate = Color( 1, 1, 1, 0.862745 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="pause"]
+modulate = Color( 1, 0.705882, 0.635294, 1 )
+margin_left = 289.315
+margin_top = 104.962
+margin_right = 963.315
+margin_bottom = 225.962
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]paused"
+text = "paused"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="continue" parent="pause" instance=ExtResource( 2 )]
+margin_left = -56.5632
+margin_top = 237.007
+margin_right = 475.437
+margin_bottom = 358.007
+focus_neighbour_right = NodePath("../restart")
+focus_neighbour_bottom = NodePath("../restart")
+
+[node name="text" parent="pause/continue" index="0"]
+bbcode_text = "[center]continue"
+text = "continue"
+
+[node name="Particles2D" parent="pause/continue" index="1"]
+position = Vector2( 137.824, 31.6753 )
+
+[node name="restart" parent="pause" instance=ExtResource( 2 )]
+margin_left = 121.559
+margin_top = 308.756
+margin_right = 653.559
+margin_bottom = 429.756
+focus_neighbour_left = NodePath("../continue")
+focus_neighbour_top = NodePath("../continue")
+focus_neighbour_right = NodePath("../restart2")
+focus_neighbour_bottom = NodePath("../restart2")
+
+[node name="text" parent="pause/restart" index="0"]
+margin_left = -19.6961
+margin_right = 599.304
+bbcode_text = "[center]restart level"
+text = "restart level"
+
+[node name="Particles2D" parent="pause/restart" index="1"]
+position = Vector2( 61.9836, 37.6753 )
+
+[node name="restart2" parent="pause" instance=ExtResource( 2 )]
+margin_left = 331.231
+margin_top = 377.007
+margin_right = 863.231
+margin_bottom = 498.007
+focus_neighbour_left = NodePath("../restart")
+focus_neighbour_top = NodePath("../restart")
+focus_neighbour_right = NodePath("../quit")
+focus_neighbour_bottom = NodePath("../quit")
+
+[node name="text" parent="pause/restart2" index="0"]
+bbcode_text = "[center]restart game"
+text = "restart game"
+
+[node name="Particles2D" parent="pause/restart2" index="1"]
+position = Vector2( 77.281, 30.5543 )
+
+[node name="quit" parent="pause" instance=ExtResource( 2 )]
+margin_left = 538.542
+margin_top = 435.119
+margin_right = 1070.54
+margin_bottom = 556.119
+focus_neighbour_left = NodePath("../restart2")
+focus_neighbour_top = NodePath("../restart2")
+focus_neighbour_right = NodePath("")
+focus_neighbour_bottom = NodePath("")
+
+[node name="text" parent="pause/quit" index="0"]
+bbcode_text = "[center]quit"
+text = "quit"
+
+[node name="text" parent="pause" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
+[node name="levelconfirm" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="levelconfirm"]
+modulate = Color( 1, 1, 1, 0.862745 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="levelconfirm"]
+modulate = Color( 1, 0.705882, 0.635294, 1 )
+margin_left = 289.315
+margin_top = 104.962
+margin_right = 963.315
+margin_bottom = 225.962
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]restart level"
+text = "restart level"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text2" parent="levelconfirm" instance=ExtResource( 3 )]
+margin_left = 171.428
+margin_top = 207.586
+margin_right = 790.428
+margin_bottom = 413.586
+bbcode_text = "[center]are you sure you want to
+restart the level?
+your time will not reset."
+text = "are you sure you want to
+restart the level?
+your time will not reset."
+
+[node name="continue" parent="levelconfirm" instance=ExtResource( 2 )]
+margin_left = 22.1313
+margin_top = 355.431
+margin_right = 554.132
+margin_bottom = 476.431
+focus_neighbour_right = NodePath("../return")
+focus_neighbour_bottom = NodePath("../return")
+
+[node name="text" parent="levelconfirm/continue" index="0"]
+bbcode_text = "[center]restart"
+text = "restart"
+
+[node name="Particles2D" parent="levelconfirm/continue" index="1"]
+position = Vector2( 137.824, 31.6753 )
+
+[node name="return" parent="levelconfirm" instance=ExtResource( 2 )]
+margin_left = 332.892
+margin_top = 418.79
+margin_right = 864.891
+margin_bottom = 539.79
+focus_neighbour_left = NodePath("../continue")
+focus_neighbour_top = NodePath("../continue")
+focus_neighbour_right = NodePath("")
+focus_neighbour_bottom = NodePath("")
+
+[node name="text" parent="levelconfirm/return" index="0"]
+bbcode_text = "[center]return"
+text = "return"
+
+[node name="text" parent="levelconfirm" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
+[node name="gameconfirm" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="gameconfirm"]
+modulate = Color( 1, 1, 1, 0.862745 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="gameconfirm"]
+modulate = Color( 1, 0.705882, 0.635294, 1 )
+margin_left = 289.315
+margin_top = 104.962
+margin_right = 963.315
+margin_bottom = 225.962
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]restart game"
+text = "restart game"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text2" parent="gameconfirm" instance=ExtResource( 3 )]
+margin_left = 171.428
+margin_top = 207.586
+margin_right = 790.428
+margin_bottom = 413.586
+bbcode_text = "[center]are you sure you want to
+restart the game?
+your time will reset."
+text = "are you sure you want to
+restart the game?
+your time will reset."
+
+[node name="continue" parent="gameconfirm" instance=ExtResource( 2 )]
+margin_left = 22.1313
+margin_top = 355.431
+margin_right = 554.132
+margin_bottom = 476.431
+focus_neighbour_right = NodePath("../return")
+focus_neighbour_bottom = NodePath("../return")
+
+[node name="text" parent="gameconfirm/continue" index="0"]
+bbcode_text = "[center]restart"
+text = "restart"
+
+[node name="Particles2D" parent="gameconfirm/continue" index="1"]
+position = Vector2( 137.824, 31.6753 )
+
+[node name="return" parent="gameconfirm" instance=ExtResource( 2 )]
+margin_left = 332.892
+margin_top = 418.79
+margin_right = 864.891
+margin_bottom = 539.79
+focus_neighbour_left = NodePath("../continue")
+focus_neighbour_top = NodePath("../continue")
+focus_neighbour_right = NodePath("")
+focus_neighbour_bottom = NodePath("")
+
+[node name="text" parent="gameconfirm/return" index="0"]
+bbcode_text = "[center]return"
+text = "return"
+
+[node name="text" parent="gameconfirm" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
 [node name="info" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
@@ -152,6 +421,7 @@ bbcode_text = "[center]press z to select"
 text = "press z to select"
 
 [node name="end" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -222,10 +492,27 @@ volume_db = -30.0
 [connection signal="pressed" from="menu/play" to="menu" method="_on_play_pressed"]
 [connection signal="pressed" from="menu/info" to="menu" method="_on_info_pressed"]
 [connection signal="pressed" from="menu/quit" to="menu" method="_on_quit_pressed"]
+[connection signal="pressed" from="pause/continue" to="menu" method="_on_continue_pressed"]
+[connection signal="pressed" from="pause/restart" to="menu" method="_on_levelreset_pressed"]
+[connection signal="pressed" from="pause/restart2" to="menu" method="_on_gamereset_pressed"]
+[connection signal="pressed" from="pause/quit" to="menu" method="_on_quittomenu_pressed"]
+[connection signal="pressed" from="levelconfirm/continue" to="menu" method="_on_levelconfirm_pressed"]
+[connection signal="pressed" from="levelconfirm/return" to="menu" method="_on_backtopause_pressed"]
+[connection signal="pressed" from="gameconfirm/continue" to="menu" method="_on_gameconfirm_pressed"]
+[connection signal="pressed" from="gameconfirm/return" to="menu" method="_on_backtopause_pressed"]
 [connection signal="pressed" from="info/back" to="menu" method="_on_back_pressed"]
 [connection signal="pressed" from="end/back" to="menu" method="_on_back_pressed"]
 
 [editable path="menu/info"]
 [editable path="menu/quit"]
+[editable path="pause/continue"]
+[editable path="pause/restart"]
+[editable path="pause/restart2"]
+[editable path="pause/quit"]
+[editable path="levelconfirm/continue"]
+[editable path="levelconfirm/return"]
+[editable path="gameconfirm/continue"]
+[editable path="gameconfirm/return"]
+[editable path="gameconfirm/text"]
 [editable path="info/back"]
 [editable path="end/back"]
