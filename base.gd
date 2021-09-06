@@ -31,6 +31,7 @@ func _play():
 	timer = 0
 	deaths = 0
 	respawn = 1
+	level = 1
 	change_scene("res://levels/1.tscn", false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
