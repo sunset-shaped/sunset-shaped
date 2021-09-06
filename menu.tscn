@@ -277,6 +277,7 @@ bbcode_text = "[center]press z to select"
 text = "press z to select"
 
 [node name="gameconfirm" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -394,12 +395,12 @@ margin_top = 172.119
 margin_right = 831.5
 margin_bottom = 438.119
 custom_constants/line_separation = 0
-bbcode_text = "[center]is created by [color=#FFB4A2]bucketfish[/color] for the [color=#FFB4A2]stop waiting for godot[/color] game jam 2021.
+bbcode_text = "[center]is created by [color=#FFB4A2]bucketfish[/color] for the [color=#FFB4A2]stop waiting for godot[/color] jam. all art, music, and code belong to her.
 
-all assets, music, and sounds belong to her."
-text = "is created by bucketfish for the stop waiting for godot game jam 2021.
+special thanks to [color=#FFB4A2]thalia[/color] for finding the cause of a huge bug."
+text = "is created by bucketfish for the stop waiting for godot jam. all art, music, and code belong to her.
 
-all assets, music, and sounds belong to her."
+special thanks to thalia for finding the cause of a huge bug."
 
 [node name="back" parent="info" instance=ExtResource( 2 )]
 margin_left = 212.5

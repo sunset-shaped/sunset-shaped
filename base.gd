@@ -15,6 +15,7 @@ onready var menu = $menu/menu
 onready var info = $menu/info
 onready var end = $menu/end
 onready var pause_screen = $menu/pause
+onready var player = $player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "pause"
@@ -56,6 +57,7 @@ func on_respawn(play=true):
 		anim.play("fade")
 		deaths += 1
 	state = "pause"
+	player.state = "idle"
 	if play:
 		yield(anim, "animation_finished")
 	propagate_call("check_respawn", [respawn])
