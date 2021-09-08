@@ -19,8 +19,15 @@ func _ready():
 
 
 func _on_goal_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") && base.state == "play":
 		if final || base.mode == "level":
+			base._end()
+			return
+		base.next_level()
+		
+func _input(event):
+	if event.is_action_pressed("test"):
+		if final:
 			base._end()
 			return
 		base.next_level()

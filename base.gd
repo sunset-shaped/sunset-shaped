@@ -11,6 +11,8 @@ var deaths = 0
 var leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
 
 signal start_respawn(id)
+signal scene_changed
+signal respawn_done
 
 onready var anim = $anim
 onready var music_anim = $music_anim
@@ -37,12 +39,16 @@ func _play():
 	deaths = 0
 	respawn = 1
 	level = 1
+	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
 	change_scene("res://levels/1.tscn", false)
+	yield(self, "scene_changed")
+	state = "play"
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
-	state = "play"
+
 	
 func _resetlevel():
+	state = "pause"
 	anim.play("fade")
 	yield(anim, "animation_finished")
 	menu._hideall()
@@ -61,15 +67,20 @@ func on_respawn(play=true):
 	if play:
 		anim.play("fade")
 		deaths += 1
+		
 	state = "pause"
 	player.state = "idle"
+	
 	if play:
 		yield(anim, "animation_finished")
 	propagate_call("check_respawn", [respawn])
 	if play:
 		anim.play_backwards("fade")
 		yield(anim, "animation_finished")
-	state = "play"
+		state = "play"
+	yield(get_tree().create_timer(0.1), "timeout")
+		
+	emit_signal("respawn_done")
 	
 func next_level():
 	if state == "play":
@@ -90,6 +101,7 @@ func change_scene(path, play=true):
 	var newroom = load(path).instance()
 	call_deferred("add_child", newroom)
 	newroom.call_deferred("on_scene_change")
+	
 	yield(newroom, "change_done")
 
 	yield(get_tree().create_timer(0.4), "timeout")
@@ -98,11 +110,12 @@ func change_scene(path, play=true):
 		state = "play"
 		anim.play_backwards("fade")
 		yield(anim, "animation_finished")
-
+		
+	print("a1")
+	emit_signal("scene_changed")
+	
 func _end():
 	state = "pause"
-	leveltime[level-1] = timer
-	
 	anim.play("fade")
 	yield(anim, "animation_finished")
 	end.visible = true
@@ -110,6 +123,7 @@ func _end():
 	menu.end_text()
 	end.get_node("back").grab_focus()
 	#change_scene("res://levels/1.tscn", false)
+	
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
 	level = 1
@@ -128,9 +142,12 @@ func _playlevel(num):
 	respawn = 1
 	level = int(num)
 	change_scene("res://levels/"+ str(num) + ".tscn", false)
+	yield(self, "scene_changed")
+	
+	state = "play"
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
-	state = "play"
+
 	
 	
 func _input(event):

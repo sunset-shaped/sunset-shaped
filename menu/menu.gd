@@ -27,6 +27,9 @@ func _ready():
 	gamereset.visible = false
 
 func end_text():
+	
+	print(base.timer)
+	print(base.leveltime[0] + base.leveltime[1] + base.leveltime[2] + base.leveltime[3] + base.leveltime[4])
 	var taken = make_time(base.timer)
 	
 	var deaths = base.deaths
@@ -39,7 +42,9 @@ deaths - %s
 [color=#FFB4A2]stay safe.[/color]""" % [taken, str(deaths)]
 
 	if base.mode == "level":
-		end.get_node("title").bbcode_text = "[center]level " + str(base.level)
+		end.get_node("title").bbcode_text = "[center]level " + str(base.level) + "."
+	else:
+		end.get_node("title").bbcode_text = "the end."
 		
 	var leveltimings = []
 	var count:float = 0
@@ -70,6 +75,7 @@ func make_time(timetaken):
 
 
 func _on_play_pressed():
+	
 	click.play()
 	base._play()
 

@@ -14,6 +14,7 @@ func _ready():
 func on_scene_change():
 	base._on_respawn_set(1)
 	base.on_respawn(false)
+	yield(base, "respawn_done")
 	emit_signal("change_done")
 	
 
