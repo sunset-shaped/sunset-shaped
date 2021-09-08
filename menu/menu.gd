@@ -44,7 +44,7 @@ deaths - %s
 	if base.mode == "level":
 		end.get_node("title").bbcode_text = "[center]level " + str(base.level) + "."
 	else:
-		end.get_node("title").bbcode_text = "the end."
+		end.get_node("title").bbcode_text = "[center]the end."
 		
 	var leveltimings = []
 	var count:float = 0
