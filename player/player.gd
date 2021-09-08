@@ -216,5 +216,4 @@ func _on_area_body_entered(body):
 
 func _on_hit_body_entered(body):
 	if body.is_in_group("wall"):
-		print("AAA")
 		jumpsound.play()

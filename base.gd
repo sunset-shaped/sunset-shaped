@@ -9,10 +9,13 @@ var timer:float = 0
 var deaths = 0
 
 var leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
+var mods = []
 
 signal start_respawn(id)
 signal scene_changed
 signal respawn_done
+
+var text = preload("res://level stuff/text.tscn")
 
 onready var anim = $anim
 onready var music_anim = $music_anim
@@ -21,6 +24,8 @@ onready var info = $menu/info
 onready var end = $menu/end
 onready var pause_screen = $menu/pause
 onready var player = $player
+onready var modlist = $menu/menu/mods
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "pause"
@@ -29,6 +34,29 @@ func _ready():
 	info.visible = false
 	end.visible = false
 	pause_screen.visible = false
+	var dir = Directory.new()
+	
+	mods = []
+	dir.open("user://")
+	if dir.dir_exists("user://mods"):
+		dir.change_dir("user://mods")
+		dir.list_dir_begin()
+		while true:
+			var file = dir.get_next()
+			if file == "":
+				break
+			elif not file.begins_with("."):
+				if ProjectSettings.load_resource_pack("user://mods/" + file):
+					mods.append(file.get_basename())
+				
+		dir.list_dir_end()
+		
+	for i in mods:
+		add_child(load("res://"+i+".tscn").instance())
+		modlist.bbcode_text += "\n"+i
+		
+				
+
 	
 func _play():
 	mode = "play"
@@ -111,7 +139,6 @@ func change_scene(path, play=true):
 		anim.play_backwards("fade")
 		yield(anim, "animation_finished")
 		
-	print("a1")
 	emit_signal("scene_changed")
 	
 func _end():
@@ -133,6 +160,7 @@ func _end():
 	
 func _playlevel(num):
 	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
+	timer = 0.0
 	mode = "level"
 	anim.play("fade")
 	yield(anim, "animation_finished")
