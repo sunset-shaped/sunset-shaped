@@ -20,7 +20,7 @@ func _ready():
 
 func _on_goal_body_entered(body):
 	if body.is_in_group("player"):
-		if final:
+		if final || base.mode == "level":
 			base._end()
 			return
 		base.next_level()

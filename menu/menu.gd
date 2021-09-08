@@ -13,6 +13,9 @@ onready var endtext = get_parent().get_node("end/text")
 onready var pause = get_parent().get_node("pause")
 onready var levelreset = get_parent().get_node("levelconfirm")
 onready var gamereset = get_parent().get_node("gameconfirm")
+onready var leveltimer = get_parent().get_node("leveltimer")
+onready var levels = get_parent().get_node("levels")
+onready var leveltime = leveltimer.get_node("text")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$play.grab_focus()
@@ -24,29 +27,46 @@ func _ready():
 	gamereset.visible = false
 
 func end_text():
-	var taken = stepify(base.timer, 0.01)
+	var taken = make_time(base.timer)
+	
+	var deaths = base.deaths
+
+
+	endtext.bbcode_text = """[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
+
+time - %s
+deaths - %s
+[color=#FFB4A2]stay safe.[/color]""" % [taken, str(deaths)]
+
+	if base.mode == "level":
+		end.get_node("title").bbcode_text = "[center]level " + str(base.level)
+		
+	var leveltimings = []
+	var count:float = 0
+	
+	for i in range(5):
+		leveltimings.append(make_time(base.leveltime[i]))
+		
+	leveltime.bbcode_text = """[center]per-level timer:
+level 1 - %s
+level 2 - %s
+level 3 - %s
+level 4 - %s
+level 5 - %s
+	""" % leveltimings
+
+func make_time(timetaken):
+	var taken = stepify(timetaken, 0.01)
 	
 	var hr = floor(taken/3600)
 	var mn = floor(taken/60) - (hr * 60)
 	var sc = floor(taken) - (mn*60) - (hr*3600)
 	var mls = fmod(taken,1) * 100
 	
-	var deaths = base.deaths
-	
 	if hr == 0:
-	
-		endtext.bbcode_text = """[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
-
-time - %s:%s.%s
-deaths - %s
-[color=#FFB4A2]stay safe.[/color]""" % [str(mn), str(sc), str(mls), str(deaths)]
-
+		return "%02d:%02d.%02d" % [mn, sc, mls]
 	else:
-		endtext.bbcode_text = """[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
-
-time - $s:%s:%s.%s
-deaths - %s
-[color=#FFB4A2]stay safe.[/color]""" % [str(hr), str(mn), str(sc), str(mls), str(deaths)]
+		return "%d:%02d:%02d.%02d" % [hr, mn, sc, mls]
 
 
 func _on_play_pressed():
@@ -133,3 +153,38 @@ func _hideall():
 	pause.visible = false
 	levelreset.visible = false
 	gamereset.visible = false
+	levels.visible = false
+	leveltimer.visible = false
+
+
+func _on_leveltime_pressed():
+	click.play()
+	end.visible = false
+	leveltimer.visible = true
+	leveltimer.get_node("back").grab_focus()
+
+
+func _on_endback_pressed():
+	click.play()
+	leveltimer.visible = false
+	end.visible = true
+	end.get_node("leveltime").grab_focus()
+
+
+func _on_levels_pressed():
+	click.play()
+	visible = false
+	levels.visible = true
+	levels.get_node("1").grab_focus()
+	
+
+func _on_levelselect(level):
+	click.play()
+	base._playlevel(level)
+
+
+func _on_levelback_pressed():
+	click.play()
+	visible = true
+	levels.visible = false
+	$levels.grab_focus()

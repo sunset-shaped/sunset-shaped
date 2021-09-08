@@ -5,17 +5,32 @@ extends TextureButton
 # var a = 2
 # var b = "text"
 
+signal levelselect(level)
+
 onready var particles = $Particles2D
 onready var text = $text
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_on_play_focus_exited()
 
 func _on_play_focus_entered():
 	particles.emitting = true
-	text.modulate = "#FFCDB2"
+	if !disabled:
+		text.modulate = "#FFCDB2"
 	
 
 func _on_play_focus_exited():
 	particles.emitting = false
-	text.modulate = "#e5989b"
+	if !disabled:
+		text.modulate = "#e5989b"
+
+func _levelselect_clicked():
+	emit_signal("levelselect", name)
+	
+func _set(property, value):
+	if property == "disabled":
+		if value == true:
+			text.modulate = "#b89c9d"
+		elif value == false:
+			text.modulate = "#e5989b"

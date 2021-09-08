@@ -14,7 +14,6 @@ font_data = ExtResource( 1 )
 layer = 2
 
 [node name="menu" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
@@ -46,18 +45,35 @@ __meta__ = {
 }
 
 [node name="play" parent="menu" instance=ExtResource( 2 )]
-margin_left = -56.5632
-margin_top = 281.007
-margin_right = 475.437
-margin_bottom = 402.007
+margin_left = -89.141
+margin_top = 254.244
+margin_right = 442.859
+margin_bottom = 375.244
+focus_neighbour_right = NodePath("../levels")
+focus_neighbour_bottom = NodePath("../levels")
 
-[node name="info" parent="menu" instance=ExtResource( 2 )]
-margin_left = 183.543
-margin_top = 339.756
-margin_right = 715.543
-margin_bottom = 460.756
+[node name="levels" parent="menu" instance=ExtResource( 2 )]
+margin_left = 108.852
+margin_top = 312.682
+margin_right = 640.852
+margin_bottom = 433.682
 focus_neighbour_left = NodePath("../play")
 focus_neighbour_top = NodePath("../play")
+
+[node name="text" parent="menu/levels" index="0"]
+bbcode_text = "[center]levels"
+text = "levels"
+
+[node name="Particles2D" parent="menu/levels" index="1"]
+position = Vector2( 178.122, 31.6753 )
+
+[node name="info" parent="menu" instance=ExtResource( 2 )]
+margin_left = 320.413
+margin_top = 358.007
+margin_right = 852.413
+margin_bottom = 479.007
+focus_neighbour_left = NodePath("../levels")
+focus_neighbour_top = NodePath("../levels")
 focus_neighbour_right = NodePath("../quit")
 focus_neighbour_bottom = NodePath("../quit")
 
@@ -66,10 +82,10 @@ bbcode_text = "[center]info"
 text = "info"
 
 [node name="quit" parent="menu" instance=ExtResource( 2 )]
-margin_left = 434.389
-margin_top = 388.886
-margin_right = 966.388
-margin_bottom = 509.886
+margin_left = 498.761
+margin_top = 407.561
+margin_right = 1030.76
+margin_bottom = 528.561
 focus_neighbour_left = NodePath("../info")
 focus_neighbour_top = NodePath("../info")
 focus_neighbour_right = NodePath("")
@@ -80,6 +96,143 @@ bbcode_text = "[center]quit"
 text = "quit"
 
 [node name="text" parent="menu" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
+[node name="levels" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="levels"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="levels"]
+modulate = Color( 1, 0.705882, 0.635294, 1 )
+margin_left = 289.315
+margin_top = 104.962
+margin_right = 963.315
+margin_bottom = 225.962
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]level select"
+text = "level select"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" parent="levels" instance=ExtResource( 2 )]
+margin_left = -137.597
+margin_top = 237.007
+margin_right = 394.403
+margin_bottom = 358.007
+focus_neighbour_right = NodePath("../2")
+focus_neighbour_bottom = NodePath("../2")
+
+[node name="text" parent="levels/1" index="0"]
+bbcode_text = "[center]1"
+text = "1"
+
+[node name="Particles2D" parent="levels/1" index="1"]
+position = Vector2( 272.684, 31.6753 )
+
+[node name="2" parent="levels" instance=ExtResource( 2 )]
+margin_left = -0.432114
+margin_top = 285.919
+margin_right = 531.568
+margin_bottom = 406.919
+focus_neighbour_left = NodePath("../1")
+focus_neighbour_top = NodePath("../1")
+focus_neighbour_right = NodePath("../3")
+focus_neighbour_bottom = NodePath("../3")
+
+[node name="text" parent="levels/2" index="0"]
+bbcode_text = "[center]2"
+text = "2"
+
+[node name="Particles2D" parent="levels/2" index="1"]
+position = Vector2( 265.389, 31.6753 )
+
+[node name="3" parent="levels" instance=ExtResource( 2 )]
+margin_left = 129.951
+margin_top = 327.595
+margin_right = 661.951
+margin_bottom = 448.595
+focus_neighbour_left = NodePath("../2")
+focus_neighbour_top = NodePath("../2")
+focus_neighbour_right = NodePath("../4")
+focus_neighbour_bottom = NodePath("../4")
+
+[node name="text" parent="levels/3" index="0"]
+bbcode_text = "[center]3"
+text = "3"
+
+[node name="Particles2D" parent="levels/3" index="1"]
+position = Vector2( 262.937, 34.474 )
+
+[node name="4" parent="levels" instance=ExtResource( 2 )]
+margin_left = 264.957
+margin_top = 360.431
+margin_right = 796.956
+margin_bottom = 481.431
+focus_neighbour_left = NodePath("../3")
+focus_neighbour_top = NodePath("../3")
+focus_neighbour_right = NodePath("../5")
+focus_neighbour_bottom = NodePath("../5")
+
+[node name="text" parent="levels/4" index="0"]
+bbcode_text = "[center]4"
+text = "4"
+
+[node name="Particles2D" parent="levels/4" index="1"]
+position = Vector2( 268.968, 31.6753 )
+
+[node name="5" parent="levels" instance=ExtResource( 2 )]
+margin_left = 392.888
+margin_top = 387.106
+margin_right = 924.887
+margin_bottom = 508.106
+focus_neighbour_left = NodePath("../4")
+focus_neighbour_top = NodePath("../4")
+focus_neighbour_right = NodePath("../back")
+focus_neighbour_bottom = NodePath("../back")
+
+[node name="text" parent="levels/5" index="0"]
+bbcode_text = "[center]5"
+text = "5"
+
+[node name="Particles2D" parent="levels/5" index="1"]
+position = Vector2( 273.562, 31.6753 )
+
+[node name="back" parent="levels" instance=ExtResource( 2 )]
+margin_left = 558.582
+margin_top = 429.756
+margin_right = 1090.58
+margin_bottom = 550.756
+focus_neighbour_left = NodePath("../5")
+focus_neighbour_top = NodePath("../5")
+focus_neighbour_right = NodePath("")
+focus_neighbour_bottom = NodePath("")
+
+[node name="text" parent="levels/back" index="0"]
+bbcode_text = "[center]back"
+text = "back"
+
+[node name="text" parent="levels" instance=ExtResource( 3 )]
 modulate = Color( 1, 0.803922, 0.698039, 1 )
 margin_left = -120.239
 margin_top = 532.587
@@ -467,11 +620,30 @@ text = "thank you for playing sunset-shaped by bucketfish.
 i hoped you enjoyed playing it. i enjoyed making it.
 stay safe."
 
+[node name="leveltime" parent="end" instance=ExtResource( 2 )]
+margin_left = 55.024
+margin_top = 430.048
+margin_right = 587.024
+margin_bottom = 551.049
+focus_neighbour_right = NodePath("../back")
+focus_neighbour_bottom = NodePath("../back")
+
+[node name="text" parent="end/leveltime" index="0"]
+bbcode_text = "[center]level time"
+text = "level time"
+
+[node name="Particles2D" parent="end/leveltime" index="1"]
+position = Vector2( 130.383, 31.6753 )
+
 [node name="back" parent="end" instance=ExtResource( 2 )]
-margin_left = 212.5
-margin_top = 459.882
-margin_right = 744.5
-margin_bottom = 580.882
+margin_left = 373.971
+margin_top = 468.614
+margin_right = 905.971
+margin_bottom = 589.614
+focus_neighbour_left = NodePath("../leveltime")
+focus_neighbour_top = NodePath("../leveltime")
+focus_neighbour_right = NodePath("")
+focus_neighbour_bottom = NodePath("")
 
 [node name="text" parent="end/back" index="0"]
 bbcode_text = "[center]back"
@@ -486,13 +658,94 @@ margin_bottom = 738.587
 bbcode_text = "[center]press z to select"
 text = "press z to select"
 
+[node name="leveltimer" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="leveltimer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.427451, 0.407843, 0.458824, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="leveltimer"]
+modulate = Color( 0.898039, 0.596078, 0.607843, 1 )
+margin_left = 171.428
+margin_top = 77.5837
+margin_right = 845.428
+margin_bottom = 198.584
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]level timer"
+text = "level timer"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" parent="leveltimer" instance=ExtResource( 3 )]
+margin_left = 212.5
+margin_top = 172.119
+margin_right = 831.5
+margin_bottom = 438.119
+custom_constants/line_separation = 0
+bbcode_text = "[center]per-level timer:
+level 1 - %s
+level 2 - %s
+level 3 - %s
+level 4 - %s
+level 5 - %s"
+text = "per-level timer:
+level 1 - %s
+level 2 - %s
+level 3 - %s
+level 4 - %s
+level 5 - %s"
+
+[node name="back" parent="leveltimer" instance=ExtResource( 2 )]
+margin_left = 212.5
+margin_top = 459.882
+margin_right = 744.5
+margin_bottom = 580.882
+
+[node name="text" parent="leveltimer/back" index="0"]
+bbcode_text = "[center]back"
+text = "back"
+
+[node name="text2" parent="leveltimer" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.803922, 0.698039, 1 )
+margin_left = -120.239
+margin_top = 532.587
+margin_right = 498.761
+margin_bottom = 738.587
+bbcode_text = "[center]press z to select"
+text = "press z to select"
+
 [node name="clicksound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -30.0
 
 [connection signal="pressed" from="menu/play" to="menu" method="_on_play_pressed"]
+[connection signal="pressed" from="menu/levels" to="menu" method="_on_levels_pressed"]
 [connection signal="pressed" from="menu/info" to="menu" method="_on_info_pressed"]
 [connection signal="pressed" from="menu/quit" to="menu" method="_on_quit_pressed"]
+[connection signal="levelselect" from="levels/1" to="menu" method="_on_levelselect"]
+[connection signal="pressed" from="levels/1" to="levels/1" method="_levelselect_clicked"]
+[connection signal="levelselect" from="levels/2" to="menu" method="_on_levelselect"]
+[connection signal="pressed" from="levels/2" to="levels/2" method="_levelselect_clicked"]
+[connection signal="levelselect" from="levels/3" to="menu" method="_on_levelselect"]
+[connection signal="pressed" from="levels/3" to="levels/3" method="_levelselect_clicked"]
+[connection signal="levelselect" from="levels/4" to="menu" method="_on_levelselect"]
+[connection signal="pressed" from="levels/4" to="levels/4" method="_levelselect_clicked"]
+[connection signal="levelselect" from="levels/5" to="menu" method="_on_levelselect"]
+[connection signal="pressed" from="levels/5" to="levels/5" method="_levelselect_clicked"]
+[connection signal="pressed" from="levels/back" to="menu" method="_on_levelback_pressed"]
 [connection signal="pressed" from="pause/continue" to="menu" method="_on_continue_pressed"]
 [connection signal="pressed" from="pause/restart" to="menu" method="_on_levelreset_pressed"]
 [connection signal="pressed" from="pause/restart2" to="menu" method="_on_gamereset_pressed"]
@@ -502,10 +755,19 @@ volume_db = -30.0
 [connection signal="pressed" from="gameconfirm/continue" to="menu" method="_on_gameconfirm_pressed"]
 [connection signal="pressed" from="gameconfirm/return" to="menu" method="_on_backtopause_pressed"]
 [connection signal="pressed" from="info/back" to="menu" method="_on_back_pressed"]
+[connection signal="pressed" from="end/leveltime" to="menu" method="_on_leveltime_pressed"]
 [connection signal="pressed" from="end/back" to="menu" method="_on_back_pressed"]
+[connection signal="pressed" from="leveltimer/back" to="menu" method="_on_endback_pressed"]
 
+[editable path="menu/levels"]
 [editable path="menu/info"]
 [editable path="menu/quit"]
+[editable path="levels/1"]
+[editable path="levels/2"]
+[editable path="levels/3"]
+[editable path="levels/4"]
+[editable path="levels/5"]
+[editable path="levels/back"]
 [editable path="pause/continue"]
 [editable path="pause/restart"]
 [editable path="pause/restart2"]
@@ -516,4 +778,6 @@ volume_db = -30.0
 [editable path="gameconfirm/return"]
 [editable path="gameconfirm/text"]
 [editable path="info/back"]
+[editable path="end/leveltime"]
 [editable path="end/back"]
+[editable path="leveltimer/back"]
