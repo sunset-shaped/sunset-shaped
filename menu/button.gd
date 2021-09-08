@@ -34,3 +34,7 @@ func _set(property, value):
 			text.modulate = "#b89c9d"
 		elif value == false:
 			text.modulate = "#e5989b"
+
+
+func _on_pressed():
+	release_focus()
