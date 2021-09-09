@@ -25,7 +25,9 @@ angle_random = 1.0
 scale = 0.5
 color_ramp = ExtResource( 3 )
 
-[node name="respawn" type="Area2D"]
+[node name="respawn" type="Area2D" groups=[
+"checkpoint",
+]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

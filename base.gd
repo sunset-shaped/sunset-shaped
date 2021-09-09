@@ -93,7 +93,6 @@ func _resetlevel():
 
 func _on_respawn_set(id):
 	respawn = id
-	print("set to " + str(respawn))
 
 func on_respawn(play=true):
 	if play:
@@ -106,7 +105,6 @@ func on_respawn(play=true):
 	if play:
 		yield(anim, "animation_finished")
 		
-	print(respawn)
 	propagate_call("check_respawn", [respawn])
 	
 	if play:
