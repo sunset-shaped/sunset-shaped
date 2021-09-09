@@ -66,6 +66,8 @@ func _ready():
 					mods.append(file.get_basename())
 				
 		dir.list_dir_end()
+	else:
+		dir.make_dir("mods")
 		
 	for i in mods:
 		add_child(load("res://"+i+".tscn").instance())
@@ -115,6 +117,7 @@ func _resetlevel():
 	leveltime[level-1] = 0
 	if mode == "level":
 		timer = 0
+		deaths = 0
 	on_respawn(false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
