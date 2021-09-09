@@ -79,9 +79,9 @@ func make_time(timetaken):
 	var mls = fmod(taken,1) * 100
 	
 	if hr == 0:
-		return "%02d:%02d.%02d" % [mn, sc, mls]
+		return "%02d:%02d.%03d" % [mn, sc, mls]
 	else:
-		return "%d:%02d:%02d.%02d" % [hr, mn, sc, mls]
+		return "%d:%02d:%02d.%03d" % [hr, mn, sc, mls]
 
 func _on_play_pressed():
 	emit_signal("pressplay")
