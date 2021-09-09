@@ -22,6 +22,7 @@ font_data = ExtResource( 1 )
 layer = 2
 
 [node name="menu" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
@@ -123,8 +124,8 @@ bbcode_text = "f5 for mods / f10 to mute"
 text = "f5 for mods / f10 to mute"
 
 [node name="mods" parent="menu" instance=ExtResource( 3 )]
-margin_left = 19.1123
-margin_top = 29.7051
+margin_left = 20.0
+margin_top = 30.0
 margin_right = 638.112
 margin_bottom = 235.705
 custom_fonts/normal_font = SubResource( 2 )

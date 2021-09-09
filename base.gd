@@ -11,6 +11,8 @@ var deaths = 0
 var leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
 var mods = []
 
+var modhuds = {}
+
 var muted = false
 
 signal start_respawn(id)
@@ -40,6 +42,7 @@ onready var end = $menu/end
 onready var pause_screen = $menu/pause
 onready var player = $player
 onready var modlist = $menu/menu/mods
+onready var modtext = $hud/hud/text
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -75,7 +78,11 @@ func _ready():
 	end.visible = false
 	pause_screen.visible = false
 		
-				
+func set_hud_text(modname:String, val:String):
+	modhuds[modname] = val
+	modtext.bbcode_text = ""
+	for i in modhuds.keys():
+		modtext.bbcode_text += modhuds[i] + "\n"
 
 	
 func _play():
