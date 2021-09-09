@@ -99,6 +99,14 @@ func get_input(delta):
 			curforce = jumpheight
 			velocity.y = -curforce
 			set_state("jumping")
+			if leftwall:
+				emit_signal("jump", "left")
+			elif rightwall:
+				emit_signal("jump", "right")
+		
+		if onfloor && state != "jumping":
+			emit_signal("jump", "floor")
+			set_state("jumping")
 			
 		if leftwall && !onfloor:
 			velocity.x = velocity.x + 1000
@@ -154,5 +162,7 @@ func _on_area_body_entered(body):
 		base.on_respawn()
 
 func set_state(new):
+	if state != new:
+		emit_signal("change_state", new)
 	state = new
-	emit_signal("change_state", new)
+	

@@ -15,6 +15,8 @@ var modhuds = {}
 
 var muted = false
 
+var modtext_updated = false
+
 signal start_respawn(id)
 signal scene_changed
 signal respawn_done
@@ -80,9 +82,9 @@ func _ready():
 		
 func set_hud_text(modname:String, val:String):
 	modhuds[modname] = val
-	modtext.bbcode_text = ""
-	for i in modhuds.keys():
-		modtext.bbcode_text += modhuds[i] + "\n"
+	modtext_updated = true
+
+		
 
 	
 func _play():
@@ -231,8 +233,7 @@ func _input(event):
 			emit_signal("unmute")
 			
 	if Input.is_action_just_pressed("modfolder"):
-		print(OS.get_user_data_dir())
-		OS. shell_open("file://" + OS.get_user_data_dir() + "/mods")
+		OS.shell_open("file://" + OS.get_user_data_dir() + "/mods")
 
 	
 func pausegame():
@@ -259,6 +260,12 @@ func _process(delta):
 	if state == "play":
 		timer += delta
 		leveltime[level-1] += delta
+		
+		if modtext_updated:
+			modtext.bbcode_text = ""
+			for i in modhuds.keys():
+				modtext.bbcode_text += modhuds[i] + "\n"
+			modtext_updated = false
 		
 func _notification(notification):
 	if notification == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
