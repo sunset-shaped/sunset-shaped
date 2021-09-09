@@ -11,6 +11,8 @@ var deaths = 0
 var leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
 var mods = []
 
+var muted = false
+
 signal start_respawn(id)
 signal scene_changed
 signal respawn_done
@@ -23,6 +25,9 @@ signal play_level(num)
 
 signal pause
 signal unpause
+
+signal mute
+signal unmute
 # pause and unpause signals / change of state
 
 var text = preload("res://level stuff/text.tscn")
@@ -205,6 +210,17 @@ func _input(event):
 		
 	elif Input.is_action_just_pressed("pause") && state == "pause" && (pause_screen.visible || menu.levelreset.visible || menu.gamereset.visible):
 		unpause()
+	
+	if Input.is_action_just_pressed("mute"):
+		if !muted:
+			AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+			muted = true
+			emit_signal("mute")
+		elif muted:
+			AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
+			muted = false
+			emit_signal("unmute")
+
 	
 func pausegame():
 	emit_signal("pause")
