@@ -213,3 +213,15 @@ func _on_levelback_pressed():
 	visible = true
 	levels.visible = false
 	$levels.grab_focus()
+
+
+func _on_play_back_pressed():
+	emit_signal("mainmenu")
+	click.play()
+	info.visible = false
+	end.visible = false
+	visible = true
+	if base.mode == "play":
+		$play.grab_focus()
+	else:
+		$levels.grab_focus()

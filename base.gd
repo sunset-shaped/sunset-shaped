@@ -111,6 +111,8 @@ func _resetlevel():
 	menu._hideall()
 	respawn = 1
 	leveltime[level-1] = 0
+	if mode == "level":
+		timer = 0
 	on_respawn(false)
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")

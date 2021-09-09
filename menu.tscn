@@ -10,11 +10,11 @@
 size = 90
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 25
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 1 )
 
@@ -119,7 +119,7 @@ margin_left = 44.9879
 margin_top = 506.689
 margin_right = 663.988
 margin_bottom = 712.689
-custom_fonts/normal_font = SubResource( 3 )
+custom_fonts/normal_font = SubResource( 2 )
 bbcode_text = "f5 for mods / f10 to mute"
 text = "f5 for mods / f10 to mute"
 
@@ -128,7 +128,7 @@ margin_left = 20.0
 margin_top = 30.0
 margin_right = 638.112
 margin_bottom = 235.705
-custom_fonts/normal_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 3 )
 bbcode_text = "mods:"
 text = "mods:"
 
@@ -784,7 +784,7 @@ volume_db = -30.0
 [connection signal="pressed" from="gameconfirm/return" to="menu" method="_on_backtopause_pressed"]
 [connection signal="pressed" from="info/back" to="menu" method="_on_back_pressed"]
 [connection signal="pressed" from="end/leveltime" to="menu" method="_on_leveltime_pressed"]
-[connection signal="pressed" from="end/back" to="menu" method="_on_back_pressed"]
+[connection signal="pressed" from="end/back" to="menu" method="_on_play_back_pressed"]
 [connection signal="pressed" from="leveltimer/back" to="menu" method="_on_endback_pressed"]
 
 [editable path="menu/levels"]
