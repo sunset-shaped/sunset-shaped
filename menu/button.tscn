@@ -26,7 +26,9 @@ angle = 720.0
 angle_random = 1.0
 color_ramp = ExtResource( 2 )
 
-[node name="play" type="TextureButton"]
+[node name="play" type="TextureButton" groups=[
+"menubutton",
+]]
 margin_left = -40.3858
 margin_top = 301.154
 margin_right = 491.614

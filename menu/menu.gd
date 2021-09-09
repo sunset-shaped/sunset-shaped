@@ -16,6 +16,23 @@ onready var gamereset = get_parent().get_node("gameconfirm")
 onready var leveltimer = get_parent().get_node("leveltimer")
 onready var levels = get_parent().get_node("levels")
 onready var leveltime = leveltimer.get_node("text")
+
+
+signal pressplay
+signal pressplaylevel
+
+signal levelselect
+signal mainmenu
+signal info
+signal quit
+
+signal levelconfirm
+signal gameconfirm
+
+signal leveltimer
+signal end
+signal end_text
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_hideall()
@@ -23,11 +40,9 @@ func _ready():
 	$play.grab_focus()
 
 func end_text():
-	
 	var taken = make_time(base.timer)
 	
 	var deaths = base.deaths
-
 
 	endtext.bbcode_text = """[center]thank you for playing [color=#FFB4A2]sunset-shaped[/color] by [color=#FFB4A2]bucketfish[/color].
 
@@ -52,6 +67,8 @@ level 3 - %s
 level 4 - %s
 level 5 - %s
 	""" % leveltimings
+	
+	emit_signal("end_text")
 
 func make_time(timetaken):
 	var taken = stepify(timetaken, 0.01)
@@ -66,14 +83,14 @@ func make_time(timetaken):
 	else:
 		return "%d:%02d:%02d.%02d" % [hr, mn, sc, mls]
 
-
 func _on_play_pressed():
-	
+	emit_signal("pressplay")
 	click.play()
 	base._play()
 
 
 func _on_info_pressed():
+	emit_signal("info")
 	click.play()
 	visible = false
 	info.visible = true
@@ -81,6 +98,7 @@ func _on_info_pressed():
 
 
 func _on_back_pressed():
+	emit_signal("mainmenu")
 	click.play()
 	info.visible = false
 	end.visible = false
@@ -89,6 +107,7 @@ func _on_back_pressed():
 
 
 func _on_quit_pressed():
+	emit_signal("quit")
 	click.play()
 	base.anim.play("fade")
 	base.music_anim.play("fade")
@@ -105,6 +124,7 @@ func _on_continue_pressed():
 
 
 func _on_quittomenu_pressed():
+	emit_signal("mainmenu")
 	click.play()
 	base.anim.play("fade")
 	yield(base.anim, "animation_finished")
@@ -114,6 +134,7 @@ func _on_quittomenu_pressed():
 
 
 func _on_levelreset_pressed():
+	emit_signal("levelconfirm")
 	click.play()
 	pause.visible = false
 	levelreset.visible = true
@@ -135,6 +156,7 @@ func _on_backtopause_pressed():
 
 
 func _on_gamereset_pressed():
+	emit_signal("gameconfirm")
 	click.play()
 	pause.visible = false
 	gamereset.visible = true
@@ -157,6 +179,7 @@ func _hideall():
 
 
 func _on_leveltime_pressed():
+	emit_signal("leveltimer")
 	click.play()
 	end.visible = false
 	leveltimer.visible = true
@@ -164,6 +187,7 @@ func _on_leveltime_pressed():
 
 
 func _on_endback_pressed():
+	
 	click.play()
 	leveltimer.visible = false
 	end.visible = true
@@ -171,6 +195,7 @@ func _on_endback_pressed():
 
 
 func _on_levels_pressed():
+	emit_signal("levelselect")
 	click.play()
 	visible = false
 	levels.visible = true
@@ -183,6 +208,7 @@ func _on_levelselect(level):
 
 
 func _on_levelback_pressed():
+	emit_signal("mainmenu")
 	click.play()
 	visible = true
 	levels.visible = false

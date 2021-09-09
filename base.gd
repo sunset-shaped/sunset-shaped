@@ -15,6 +15,16 @@ signal start_respawn(id)
 signal scene_changed
 signal respawn_done
 
+signal set_respawn(id)
+signal reset_level
+
+signal play_all
+signal play_level(num)
+
+signal pause
+signal unpause
+# pause and unpause signals / change of state
+
 var text = preload("res://level stuff/text.tscn")
 
 onready var anim = $anim
@@ -29,11 +39,7 @@ onready var modlist = $menu/menu/mods
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "pause"
-	respawn = 1
-	menu.visible = true
-	info.visible = false
-	end.visible = false
-	pause_screen.visible = false
+
 	var dir = Directory.new()
 	
 	mods = []
@@ -58,6 +64,12 @@ func _ready():
 	if modlist.bbcode_text == "mods:":
 		modlist.bbcode_text = "no mods installed."
 		
+	respawn = 1
+	menu.visible = true
+	info.visible = false
+	end.visible = false
+	pause_screen.visible = false
+		
 				
 
 	
@@ -65,6 +77,7 @@ func _play():
 	mode = "play"
 	anim.play("fade")
 	yield(anim, "animation_finished")
+	emit_signal("play_all")
 	menu._hideall()
 	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
 	change_scene("res://levels/1.tscn", false)
@@ -82,6 +95,7 @@ func _resetlevel():
 	state = "pause"
 	anim.play("fade")
 	yield(anim, "animation_finished")
+	emit_signal("reset_level")
 	menu._hideall()
 	respawn = 1
 	leveltime[level-1] = 0
@@ -92,9 +106,11 @@ func _resetlevel():
 	
 
 func _on_respawn_set(id):
+	emit_signal("set_respawn", id)
 	respawn = id
 
 func on_respawn(play=true):
+	emit_signal("start_respawn", respawn)
 	if play:
 		anim.play("fade")
 		deaths += 1
@@ -169,6 +185,7 @@ func _playlevel(num):
 	mode = "level"
 	anim.play("fade")
 	yield(anim, "animation_finished")
+	emit_signal("play_level")
 	menu._hideall()
 	level = int(num)
 	change_scene("res://levels/"+ str(num) + ".tscn", false)
@@ -190,6 +207,7 @@ func _input(event):
 		unpause()
 	
 func pausegame():
+	emit_signal("pause")
 	state = "pause"
 	menu._hideall()
 	pause_screen.visible = true
@@ -203,6 +221,7 @@ func pausegame():
 	
 	
 func unpause():
+	emit_signal("unpause")
 	state = "play"
 	menu._hideall()
 	

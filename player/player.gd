@@ -4,65 +4,28 @@ extends KinematicBody2D
 #establish scene name for saving
 export var scene_id = "player"
 
-#physics modes with numbers
-var physics = {
-	"air": {
-		"speed": 500,
-		"gravity": 2800,
-		"friction": 0.4,
-		"acceleration": 0.15,
-		"jumpheight": 240,
-		"jumpinc": 0.64,
-		"jgravity": 300,
-		"downgravity": 0,
-	},
-	"water":{
-		"speed": 300,
-		"gravity": 50,
-		"friction": 0.2,
-		"acceleration": 0.10,
-		"jumpheight": 10,
-		"jumpinc": 1,
-		"jgravity": 100,
-		"downgravity": 25
-	}
-}
-
 onready var raycasts = {
 	"floor":[$floor_raycast/floor, $floor_raycast/floor2, $floor_raycast/floor3],
 	"left":[$left/floor, $left/floor2, $left/floor3],
 	"right":[$right/floor, $right/floor2, $right/floor3]
 	}
 
-#player's current physics numbers
-export (int) var speed = 800
-export (int) var slidespeed = 2000
-export (int) var gravity = 3000
-export (int) var downgravity = 0
+#constants and stuff / physics
+export (int) var speed = 500
+export (int) var gravity = 2800
 
 export (float, 0, 1.0) var friction = 0.4
-export (float, 0, 1.0) var acceleration = 0.20
-export (float, 0, 1.0) var slideacceleration = 0.05
+export (float, 0, 1.0) var acceleration = 0.15
 
-export (float, 0, 1.0) var jumpheight = 250
-export (float, 0, 1.0) var jumpinc = 0.79
-export (float, 0, 1.0) var jgravity = 600
+export (float, 0, 1.0) var jumpheight = 240
+export (float, 0, 1.0) var jumpinc = 0.64
+export (float, 0, 1.0) var jgravity = 300
 
 #setting up ground variables
 var velocity = Vector2.ZERO
 var curforce = jumpheight
 
 var dialogue = false
-var inwater = false
-
-var giving = false
-
-var playerpause = false
-var curphy:String
-
-var doublejump = false
-var doubledash = false
-var speedboost = false
 
 var state = "idle"
 var touching = false
@@ -72,16 +35,18 @@ onready var walkparticles = $Particles2D
 onready var jumpsound = $AudioStreamPlayer
 onready var diesound = $AudioStreamPlayer2
 
+signal jump(loc)
+signal change_state(state)
+signal touch
+
 func _ready():
 	#turn on things, set the base
-	change_physics("air")
-	$"collision".disabled = false
+	pass
 	
 
 func get_input(delta):
 	
 	#if we don't want to take input, don't take input
-		
 	if base.state != "play":
 		velocity.x = 0
 		velocity.y = 0
@@ -95,6 +60,7 @@ func get_input(delta):
 	
 	if (onfloor || leftwall || rightwall) && !touching:
 		touching = true
+		emit_signal("touch")
 		jumpsound.play()
 		
 	if !onfloor && !leftwall && !rightwall:
@@ -111,28 +77,28 @@ func get_input(delta):
 	#sideways speed, and/or friction
 	if dir != 0:
 		if state == "idle":
-			state = "walk"
+			set_state("walk")
 		velocity.x = lerp(velocity.x, dir * speed, acceleration * delta * 70)
 	else:
 		if state == "walk":
-			state = "idle"
+			set_state("idle")
 		velocity.x = lerp(velocity.x, 0, friction * delta * 70)
 
 	#apply gravity when finished jumping
 	if Input.is_action_just_released("jump"):	
 		if state == "jumping":
 			velocity.y += jgravity
-			state = "falling"
+			set_state("falling")
 			
 		if onfloor:
-			state = "idle"
+			set_state("idle")
 			
 	
 	if Input.is_action_just_pressed("jump"):
 		if (leftwall || rightwall) && !onfloor && state != "jumping":
 			curforce = jumpheight
 			velocity.y = -curforce
-			state = "jumping"
+			set_state("jumping")
 			
 		if leftwall && !onfloor:
 			velocity.x = velocity.x + 1000
@@ -144,7 +110,7 @@ func get_input(delta):
 
 	if Input.is_action_pressed("jump"):
 		if onfloor || rightwall || leftwall:
-			state = "jumping"
+			set_state("jumping")
 
 
 		if state == "jumping":
@@ -152,7 +118,7 @@ func get_input(delta):
 			curforce *= jumpinc
 		
 		if velocity.y >= 0:
-			state = "falling"
+			set_state("falling")
 		
 	
 	#moving down in water
@@ -181,39 +147,12 @@ func raycast(area):
 			return true
 	return false
 	
-	
-func change_physics(new):
-	curphy = new
-	for i in physics[new].keys():
-		set(i, physics[new][i])
-
-	
-
-func _on_canstand_body_entered(body):
-	if body.is_in_group("water"):
-		inwater = true
-		change_physics("water")
-		velocity.y /= 10
-		if velocity.y < 100:
-			velocity.y = 100
-
-
-func _on_canstand_body_exited(body):
-	if body.is_in_group("water"):
-		inwater = false
-		change_physics("air")
-		curforce = jumpheight
-		if Input.is_action_pressed("jump"):
-			velocity.y = -curforce
-
 
 func _on_area_body_entered(body):
 	if body.is_in_group("die"):
 		diesound.play()
 		base.on_respawn()
 
-
-
-func _on_hit_body_entered(body):
-	if body.is_in_group("wall"):
-		jumpsound.play()
+func set_state(new):
+	state = new
+	emit_signal("change_state", new)
