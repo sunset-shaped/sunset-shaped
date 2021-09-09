@@ -106,11 +106,11 @@ text = "quit"
 
 [node name="text" parent="menu" instance=ExtResource( 3 )]
 modulate = Color( 1, 0.803922, 0.698039, 1 )
-margin_left = -120.239
+margin_left = 44.0
 margin_top = 532.587
 margin_right = 498.761
 margin_bottom = 738.587
-bbcode_text = "[center]press z to select"
+bbcode_text = "press z to select"
 text = "press z to select"
 
 [node name="f5f10" parent="menu" instance=ExtResource( 3 )]
@@ -540,7 +540,6 @@ bbcode_text = "[center]press z to select"
 text = "press z to select"
 
 [node name="info" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -578,10 +577,10 @@ margin_bottom = 438.119
 custom_constants/line_separation = 0
 bbcode_text = "[center]is created by [color=#FFB4A2]bucketfish[/color] for the [color=#FFB4A2]stop waiting for godot[/color] jam. all art, music, and code belong to her.
 
-special thanks to [color=#FFB4A2]thalia[/color] for finding the cause of a huge bug."
+special thanks to [color=#FFB4A2]thalia[/color], [color=#FFB4A2]taf[/color], [color=#FFB4A2]exa[/color], [color=#FFB4A2]bread[/color], [color=#FFB4A2]john[/color], [color=#FFB4A2]fern[/color], and [color=#FFB4A2]giraffe[/color]."
 text = "is created by bucketfish for the stop waiting for godot jam. all art, music, and code belong to her.
 
-special thanks to thalia for finding the cause of a huge bug."
+special thanks to thalia, taf, exa, bread, john, fern, and giraffe."
 
 [node name="back" parent="info" instance=ExtResource( 2 )]
 margin_left = 212.5
