@@ -16,4 +16,5 @@ func check_respawn(target):
 		player.position = position
 
 func _on_respawn_body_entered(body):
-	emit_signal("select", id)
+	if body.is_in_group("player") && base.state == "play":
+		emit_signal("select", id)

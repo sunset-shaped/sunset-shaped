@@ -18,13 +18,9 @@ onready var levels = get_parent().get_node("levels")
 onready var leveltime = leveltimer.get_node("text")
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$play.grab_focus()
+	_hideall()
 	visible = true
-	info.visible = false
-	end.visible = false
-	pause.visible = false
-	levelreset.visible = false
-	gamereset.visible = false
+	$play.grab_focus()
 
 func end_text():
 	

@@ -66,13 +66,13 @@ func _play():
 	anim.play("fade")
 	yield(anim, "animation_finished")
 	menu._hideall()
+	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
+	change_scene("res://levels/1.tscn", false)
+	yield(self, "scene_changed")
 	timer = 0
 	deaths = 0
 	respawn = 1
 	level = 1
-	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
-	change_scene("res://levels/1.tscn", false)
-	yield(self, "scene_changed")
 	state = "play"
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
@@ -93,6 +93,7 @@ func _resetlevel():
 
 func _on_respawn_set(id):
 	respawn = id
+	print("set to " + str(respawn))
 
 func on_respawn(play=true):
 	if play:
@@ -104,7 +105,10 @@ func on_respawn(play=true):
 	
 	if play:
 		yield(anim, "animation_finished")
+		
+	print(respawn)
 	propagate_call("check_respawn", [respawn])
+	
 	if play:
 		anim.play_backwards("fade")
 		yield(anim, "animation_finished")
@@ -168,13 +172,12 @@ func _playlevel(num):
 	anim.play("fade")
 	yield(anim, "animation_finished")
 	menu._hideall()
-	timer = 0
-	deaths = 0
-	respawn = 1
 	level = int(num)
 	change_scene("res://levels/"+ str(num) + ".tscn", false)
 	yield(self, "scene_changed")
-	
+	timer = 0
+	deaths = 0
+	respawn = 1
 	state = "play"
 	anim.play_backwards("fade")
 	yield(anim, "animation_finished")
@@ -185,14 +188,12 @@ func _input(event):
 	if Input.is_action_just_pressed("pause") && state == "play":
 		pausegame()
 		
-	elif Input.is_action_just_pressed("pause") && state == "pause" && !menu.visible:
+	elif Input.is_action_just_pressed("pause") && state == "pause" && (pause_screen.visible || menu.levelreset.visible || menu.gamereset.visible):
 		unpause()
-		
+	
 func pausegame():
 	state = "pause"
-	menu.visible = false
-	info.visible = false
-	end.visible = false
+	menu._hideall()
 	pause_screen.visible = true
 	
 	if mode == "level":
@@ -205,7 +206,7 @@ func pausegame():
 	
 func unpause():
 	state = "play"
-	pause_screen.visible = false
+	menu._hideall()
 	
 
 func _process(delta):

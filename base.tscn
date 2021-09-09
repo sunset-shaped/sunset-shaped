@@ -67,13 +67,11 @@ color = Color( 0.835294, 0.741176, 0.690196, 0.486275 )
 script = ExtResource( 2 )
 
 [node name="player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -916.438, 156.188 )
 
 [node name="RemoteTransform2D" parent="player" index="6"]
 remote_path = NodePath("../../camera")
 
 [node name="camera" type="Camera2D" parent="."]
-position = Vector2( -916.438, 156.188 )
 current = true
 smoothing_enabled = true
 offset_v = -0.1
