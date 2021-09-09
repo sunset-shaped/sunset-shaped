@@ -54,6 +54,9 @@ func _ready():
 	for i in mods:
 		add_child(load("res://"+i+".tscn").instance())
 		modlist.bbcode_text += "\n"+i
+	
+	if modlist.bbcode_text == "mods:":
+		modlist.bbcode_text = "no mods installed."
 		
 				
 
