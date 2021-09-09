@@ -148,8 +148,8 @@ __meta__ = {
 margin_right = 984.0
 margin_bottom = 540.0
 custom_fonts/normal_font = SubResource( 6 )
-bbcode_text = "none"
-text = "none"
+bbcode_text = ""
+text = ""
 
 [editable path="player"]
 [editable path="menu"]
