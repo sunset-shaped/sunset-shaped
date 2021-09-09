@@ -220,6 +220,10 @@ func _input(event):
 			AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
 			muted = false
 			emit_signal("unmute")
+			
+	if Input.is_action_just_pressed("modfolder"):
+		print(OS.get_user_data_dir())
+		OS. shell_open("file://" + OS.get_user_data_dir() + "/mods")
 
 	
 func pausegame():
