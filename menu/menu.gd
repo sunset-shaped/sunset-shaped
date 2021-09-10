@@ -76,7 +76,7 @@ func make_time(timetaken):
 	var hr = floor(taken/3600)
 	var mn = floor(taken/60) - (hr * 60)
 	var sc = floor(taken) - (mn*60) - (hr*3600)
-	var mls = fmod(taken,1) * 100
+	var mls = fmod(taken,1) * 1000
 	
 	if hr == 0:
 		return "%02d:%02d.%03d" % [mn, sc, mls]
