@@ -167,7 +167,7 @@ func change_scene(path, play=true):
 		i.queue_free()
 			
 	var newroom = load(path).instance()
-	call_deferred("dothechange", newroom)
+	call_deferred("add_child", newroom)
 
 	
 	yield(newroom, "change_done")
@@ -181,9 +181,6 @@ func change_scene(path, play=true):
 		
 	emit_signal("scene_changed")
 	
-func dothechange(new):
-	call_deferred("add_child", new)
-	new.call_deferred("on_scene_change")
 	
 func _end():
 	state = "pause"
