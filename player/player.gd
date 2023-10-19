@@ -46,6 +46,8 @@ var lastonfloor = 0.0
 var lastonleft = 0.0
 var lastonright = 0.0
 
+var just_jumped_floor = false
+
 export (float) var coyote_time = 0.2
 
 
@@ -55,6 +57,7 @@ func _ready():
 	
 
 func get_input(delta):
+
 	
 	#if we don't want to take input, don't take input
 	if base.state != "play":
@@ -62,6 +65,7 @@ func get_input(delta):
 		velocity.y = 0
 		return
 		
+	just_jumped_floor = false
 		
 	#settle these variables first
 	var onfloor = raycast("floor")
@@ -132,13 +136,18 @@ func get_input(delta):
 				emit_signal("jump", "left")
 			elif rightwall:
 				emit_signal("jump", "right")
+				
+#			just_jumped_floor = true
 		
 		if onfloor && state != "jumping":
+			print("?")
 			
-			onfloor = 2000
+			lastonfloor = 2000
+			just_jumped_floor = true
 			
 			curforce = jumpheight
 			velocity.y = -curforce
+			print(velocity.y)
 			
 			emit_signal("jump", "floor")
 			set_state("jumping")
@@ -155,7 +164,6 @@ func get_input(delta):
 			set_state("jumping")
 
 		if state == "jumping":
-			print("?")
 			velocity.y = clamp(velocity.y - curforce, -1000, 10000000)
 			curforce *= jumpinc
 			
@@ -165,21 +173,21 @@ func get_input(delta):
 		
 #		if velocity.y >= 0:
 #			set_state("falling")
-		
-	
-	#moving down in water
 	
 	#reseting values when hitting floor
-	if raycast("floor"):
+	if raycast("floor") || just_jumped_floor:
+		print("onfloor")
 		curforce = jumpheight
 		lastonfloor = 0
+		
+
 
 	if (leftwall || rightwall) && state != "jumping":
 		velocity.y = clamp(velocity.y + 1000 * delta, -1000, 350)
 	else:
 		velocity.y = clamp(velocity.y + gravity * delta, -1000, 1000)
 	
-	debug.text = str(state)
+	debug.text = str(state) + str(velocity.y)
 
 func _physics_process(delta):
 	get_input(delta)

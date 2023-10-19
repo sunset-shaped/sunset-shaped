@@ -49,10 +49,21 @@ onready var modtext = $hud/hud/text
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = "pause"
-
-	var dir = Directory.new()
 	
+	load_mods()
+		
+	respawn = 1
+	menu.visible = true
+	info.visible = false
+	end.visible = false
+	pause_screen.visible = false
+		
+
+func load_mods():
+	var dir = Directory.new()
+
 	mods = []
+
 	dir.open("user://")
 	if dir.dir_exists("user://mods"):
 		dir.change_dir("user://mods")
@@ -64,29 +75,23 @@ func _ready():
 			elif not file.begins_with("."):
 				if ProjectSettings.load_resource_pack("user://mods/" + file):
 					mods.append(file.get_basename())
-				
+
 		dir.list_dir_end()
 	else:
 		dir.make_dir("mods")
-		
+
 	for i in mods:
 		add_child(load("res://"+i+".tscn").instance())
 		modlist.bbcode_text += "\n"+i
-	
+
 	if modlist.bbcode_text == "mods:":
 		modlist.bbcode_text = "no mods installed."
 		
-	respawn = 1
-	menu.visible = true
-	info.visible = false
-	end.visible = false
-	pause_screen.visible = false
-		
+
+
 func set_hud_text(modname:String, val:String):
 	modhuds[modname] = val
 	modtext_updated = true
-
-		
 
 	
 func _play():
