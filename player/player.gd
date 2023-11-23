@@ -35,21 +35,9 @@ onready var walkparticles = $Particles2D
 onready var jumpsound = $AudioStreamPlayer
 onready var diesound = $AudioStreamPlayer2
 
-onready var debug = $Label
-
 signal jump(loc)
 signal change_state(state)
 signal touch
-
-
-var lastonfloor = 0.0
-var lastonleft = 0.0
-var lastonright = 0.0
-
-var just_jumped_floor = false
-
-export (float) var coyote_time = 0.2
-
 
 func _ready():
 	#turn on things, set the base
@@ -57,7 +45,6 @@ func _ready():
 	
 
 func get_input(delta):
-
 	
 	#if we don't want to take input, don't take input
 	if base.state != "play":
@@ -65,27 +52,11 @@ func get_input(delta):
 		velocity.y = 0
 		return
 		
-	just_jumped_floor = false
 		
 	#settle these variables first
 	var onfloor = raycast("floor")
 	var leftwall = raycast("left")
 	var rightwall = raycast("right")
-	
-	lastonfloor += delta
-	lastonleft += delta
-	lastonright += delta
-	
-	if onfloor:
-		lastonfloor = 0
-	if leftwall:
-		lastonleft = 0
-	if rightwall:
-		lastonright = 0
-		
-	onfloor = lastonfloor < coyote_time
-	leftwall = lastonleft < coyote_time
-	rightwall = lastonright < coyote_time
 	
 	if (onfloor || leftwall || rightwall) && !touching:
 		touching = true
@@ -128,27 +99,12 @@ func get_input(delta):
 			curforce = jumpheight
 			velocity.y = -curforce
 			set_state("jumping")
-			
-			lastonleft = 2000
-			lastonright = 2000
-			
 			if leftwall:
 				emit_signal("jump", "left")
 			elif rightwall:
 				emit_signal("jump", "right")
-				
-#			just_jumped_floor = true
 		
 		if onfloor && state != "jumping":
-			print("?")
-			
-			lastonfloor = 2000
-			just_jumped_floor = true
-			
-			curforce = jumpheight
-			velocity.y = -curforce
-			print(velocity.y)
-			
 			emit_signal("jump", "floor")
 			set_state("jumping")
 			
@@ -158,36 +114,34 @@ func get_input(delta):
 		if rightwall && !onfloor:
 			velocity.x = velocity.x - 1000
 			
+			
 
 	if Input.is_action_pressed("jump"):
 		if onfloor || rightwall || leftwall:
 			set_state("jumping")
 
+
 		if state == "jumping":
 			velocity.y = clamp(velocity.y - curforce, -1000, 10000000)
 			curforce *= jumpinc
-			
-			lastonleft = 2000
-			lastonright = 2000
-			lastonfloor = 2000
 		
-#		if velocity.y >= 0:
-#			set_state("falling")
+		if velocity.y >= 0:
+			set_state("falling")
+		
+	
+	#moving down in water
 	
 	#reseting values when hitting floor
-	if raycast("floor") || just_jumped_floor:
-		print("onfloor")
+	if onfloor:
 		curforce = jumpheight
-		lastonfloor = 0
 		
-
+		
 
 	if (leftwall || rightwall) && state != "jumping":
 		velocity.y = clamp(velocity.y + 1000 * delta, -1000, 350)
 	else:
 		velocity.y = clamp(velocity.y + gravity * delta, -1000, 1000)
 	
-	debug.text = str(state) + str(velocity.y)
 
 func _physics_process(delta):
 	get_input(delta)
