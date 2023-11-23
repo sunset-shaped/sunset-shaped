@@ -205,7 +205,7 @@ func _end():
 	
 	
 func _playlevel(num):
-	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0]
+	leveltime = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	timer = 0.0
 	mode = "level"
 	anim.play("fade")
@@ -225,6 +225,9 @@ func _playlevel(num):
 	
 	
 func _input(event):
+	if Input.is_action_just_pressed("test"):
+		_playlevel(10)
+		
 	if Input.is_action_just_pressed("pause") && state == "play":
 		pausegame()
 		
