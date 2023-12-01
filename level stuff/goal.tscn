@@ -32,9 +32,7 @@ angle = 720.0
 angle_random = 1.0
 color_ramp = SubResource( 3 )
 
-[node name="goal" type="Area2D" groups=[
-"goal",
-]]
+[node name="goal" type="Area2D" groups=["goal"]]
 collision_layer = 0
 script = ExtResource( 2 )
 

@@ -15,11 +15,11 @@ tile_data = PoolIntArray( -5832708, 0, 196615, -5898233, 0, 196615, -5767172, 0,
 
 [node name="respawn3" parent="." index="2" instance=ExtResource( 2 )]
 position = Vector2( 19, -776 )
-id = 1
+id = 3
 
 [node name="respawn2" parent="." index="3" instance=ExtResource( 2 )]
 position = Vector2( -35, -576 )
-id = 1
+id = 2
 
 [node name="respawn" parent="." index="4" instance=ExtResource( 2 )]
 position = Vector2( 134, 202 )
